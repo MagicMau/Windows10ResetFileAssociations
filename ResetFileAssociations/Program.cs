@@ -20,11 +20,11 @@ namespace ResetFileAssociations
             Thread.Sleep(5000);
             if (WaitForUnlock())
             {
-                SetSystemDefaultBrowserWithGUI();
+                SetSystemDefaultBrowserWithGUI("Google Chrome");
             }
         }
 
-        public static bool SetSystemDefaultBrowserWithGUI()
+        public static bool SetSystemDefaultBrowserWithGUI(string browserName)
         {
             Process.Start("ms-settings:about");
 
@@ -69,7 +69,7 @@ namespace ResetFileAssociations
             var nextLabel = (TextPattern)TreeWalker.ControlViewWalker.GetFirstChild(next).GetCurrentPattern(TextPattern.Pattern);
             var curBrowser = nextLabel.DocumentRange.GetText(100);
 
-            if (curBrowser == "Microsoft Edge")
+            if (curBrowser == browserName)
             {
                 ((WindowPattern)window.GetCurrentPattern(WindowPattern.Pattern)).Close();
                 return true; // no need to change
@@ -85,7 +85,7 @@ namespace ResetFileAssociations
             btn.Invoke();
 
             // this will open up the choices window - now how to find it...
-            var edgeText = WaitForLabel(window, "Google Chrome");
+            var edgeText = WaitForLabel(window, browserName);
 
             if (edgeText != null)
             {
