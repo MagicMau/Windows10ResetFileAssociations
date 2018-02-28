@@ -93,7 +93,7 @@ namespace ResetFileAssociations
                 {
                     var edgeTextParent = TreeWalker.ControlViewWalker.GetParent(edgeText);
                     if (!edgeTextParent.TryGetCurrentPattern(InvokePattern.Pattern, out edgeBtnObj))
-                        return false; // oops
+                        edgeBtnObj = null;
                 }
 
                 var edgeBtn = edgeBtnObj as InvokePattern;
